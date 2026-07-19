@@ -2,6 +2,8 @@ package com.sunrisedental;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 
 /**
  * Sunrise Dental Clinic — Main Application Entry Point.
@@ -18,7 +20,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Sunrise Dental Clinic Development Team
  * @version 1.0.0-SNAPSHOT
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+@ServletComponentScan
 public class SunriseDentalApplication {
 
     public static void main(String[] args) {
