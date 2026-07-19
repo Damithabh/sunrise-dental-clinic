@@ -108,11 +108,11 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- ── H2 Database (For Testing) ── -->
+        <!-- ── H2 Database (For Testing / Local Dev) ── -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>test</scope>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- ── Spring Boot DevTools (Development) ── -->

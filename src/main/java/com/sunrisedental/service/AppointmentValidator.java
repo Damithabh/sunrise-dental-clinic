@@ -8,6 +8,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 /**
  * AppointmentValidator — Business Logic Tier.
  * 
@@ -30,6 +32,7 @@ import java.util.List;
  * @author Sunrise Dental Clinic Development Team
  * @version 1.0.0
  */
+@Component
 public class AppointmentValidator {
 
     /** Clinic opening time — appointments cannot be earlier than this. */
