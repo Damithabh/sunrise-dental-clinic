@@ -1,0 +1,18 @@
+/* ═══════════════════════════════════════════════════════════════
+ *  Sunrise Dental Clinic — Global Stylesheet
+ *  Version: 1.0.0
+ * ═══════════════════════════════════════════════════════════════ */
+
+/* Placeholder: Full styles will be implemented in Phase 3 */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+}
