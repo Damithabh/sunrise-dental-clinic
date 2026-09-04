@@ -1,6 +1,5 @@
 package com.sunrisedental.model;
 
-import java.time.LocalDate;
 
 /**
  * Represents a dental treatment type offered by Sunrise Dental Clinic.

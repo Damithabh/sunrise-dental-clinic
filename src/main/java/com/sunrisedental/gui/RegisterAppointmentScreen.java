@@ -18,7 +18,6 @@ import java.time.format.DateTimeParseException;
  */
 public class RegisterAppointmentScreen extends JFrame {
 
-    private final RestApiClient apiClient;
     private final JFrame parentDashboard;
 
     private JTextField patientNameField;
@@ -32,7 +31,6 @@ public class RegisterAppointmentScreen extends JFrame {
 
     public RegisterAppointmentScreen(JFrame parentDashboard) {
         this.parentDashboard = parentDashboard;
-        this.apiClient = new RestApiClient();
         
         setTitle("Register New Appointment");
         setSize(500, 500);

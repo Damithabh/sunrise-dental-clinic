@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
             session.setMaxInactiveInterval(30 * 60);
 
             // Redirect to the main dashboard
-            response.sendRedirect("dashboard.jsp");
+            response.sendRedirect("dashboard");
         } else {
             // Authentication failed, return to login with error message
             request.setAttribute("error", "Invalid username or password. Please try again.");

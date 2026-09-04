@@ -86,6 +86,15 @@ public class AppointmentService {
     }
 
     /**
+     * Retrieves all scheduled appointments in the system.
+     * 
+     * @return a list of all appointments
+     */
+    public List<Appointment> getAllAppointments() {
+        return appointmentDAO.findAll();
+    }
+
+    /**
      * Checks if a dentist already has an appointment booked at the same time on the same date.
      * 
      * @param appointment the proposed appointment

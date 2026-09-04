@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <% 
     // Session Check: Prevent access if not logged in
     if(session.getAttribute("username") == null) {
@@ -14,9 +15,8 @@
     <%-- Sidebar Menu --%>
     <aside class="w-64 bg-white border-r border-gray-200 shadow-sm hidden md:block">
         <div class="h-full px-3 py-6 overflow-y-auto">
-            <ul class="space-y-2 font-medium">
                 <li>
-                    <a href="dashboard.jsp" class="flex items-center p-3 text-blue-700 bg-blue-50 rounded-lg group transition">
+                    <a href="dashboard" class="flex items-center p-3 text-blue-700 bg-blue-50 rounded-lg group transition">
                         <span class="mr-3 text-xl">📊</span>
                         <span>Dashboard Overview</span>
                     </a>
@@ -28,15 +28,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="flex items-center p-3 text-gray-900 rounded-lg hover:bg-gray-100 group transition">
-                        <span class="mr-3 text-xl">🔍</span>
-                        <span>Search Patients</span>
+                    <a href="billing" class="flex items-center p-3 text-gray-900 rounded-lg hover:bg-gray-100 group transition">
+                        <span class="mr-3 text-xl">💳</span>
+                        <span>Billing & Invoices</span>
                     </a>
                 </li>
                 <li>
-                    <a href="billing.jsp" class="flex items-center p-3 text-gray-900 rounded-lg hover:bg-gray-100 group transition">
-                        <span class="mr-3 text-xl">💳</span>
-                        <span>Billing & Invoices</span>
+                    <a href="help.jsp" class="flex items-center p-3 text-gray-900 rounded-lg hover:bg-gray-100 group transition">
+                        <span class="mr-3 text-xl">❓</span>
+                        <span>Help Center</span>
                     </a>
                 </li>
             </ul>
@@ -45,7 +45,18 @@
 
     <%-- Main Dashboard Content --%>
     <div class="flex-1 p-8">
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">Clinic Overview</h2>
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Clinic Overview</h2>
+            
+            <%-- Search Form --%>
+            <form action="search" method="get" class="flex items-center">
+                <input type="text" name="appointmentNumber" placeholder="Search Appt No (e.g. APT-...)" required
+                    class="px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-blue-500 focus:border-blue-500 transition w-64">
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 transition">
+                    Search
+                </button>
+            </form>
+        </div>
         
         <%-- Analytics Cards Grid --%>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -55,8 +66,8 @@
                     <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider">Today's Appointments</h3>
                     <span class="p-2 bg-blue-100 text-blue-800 rounded-lg text-xl">📅</span>
                 </div>
-                <div class="text-3xl font-bold text-gray-900">12</div>
-                <p class="text-sm text-green-600 mt-2">↑ 3 from yesterday</p>
+                <div class="text-3xl font-bold text-gray-900"><c:out value="${appointmentsCount != null ? appointmentsCount : '0'}" /></div>
+                <p class="text-sm text-green-600 mt-2">↑ Up to date</p>
             </div>
 
             <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
@@ -64,7 +75,7 @@
                     <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider">Pending Bills</h3>
                     <span class="p-2 bg-yellow-100 text-yellow-800 rounded-lg text-xl">⚠️</span>
                 </div>
-                <div class="text-3xl font-bold text-gray-900">4</div>
+                <div class="text-3xl font-bold text-gray-900">0</div>
                 <p class="text-sm text-gray-500 mt-2">Requires follow-up</p>
             </div>
 
@@ -73,7 +84,7 @@
                     <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider">Total Revenue</h3>
                     <span class="p-2 bg-green-100 text-green-800 rounded-lg text-xl">💰</span>
                 </div>
-                <div class="text-3xl font-bold text-gray-900">Rs 45,500</div>
+                <div class="text-3xl font-bold text-gray-900">Rs <c:out value="${totalRevenue != null ? totalRevenue : '0.0'}" /></div>
                 <p class="text-sm text-green-600 mt-2">Generated today</p>
             </div>
 
@@ -96,20 +107,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="bg-white border-b hover:bg-gray-50">
-                            <td class="px-6 py-4 font-medium text-blue-600">APT-20240719-001</td>
-                            <td class="px-6 py-4">Kamal Perera</td>
-                            <td class="px-6 py-4">Teeth Cleaning</td>
-                            <td class="px-6 py-4">09:00 AM</td>
-                            <td class="px-6 py-4"><span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">Completed</span></td>
-                        </tr>
-                        <tr class="bg-white border-b hover:bg-gray-50">
-                            <td class="px-6 py-4 font-medium text-blue-600">APT-20240719-002</td>
-                            <td class="px-6 py-4">Saman De Silva</td>
-                            <td class="px-6 py-4">Root Canal</td>
-                            <td class="px-6 py-4">11:30 AM</td>
-                            <td class="px-6 py-4"><span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">In Progress</span></td>
-                        </tr>
+                        <c:choose>
+                            <c:when test="${not empty recentAppointments}">
+                                <c:forEach var="appt" items="${recentAppointments}">
+                                    <tr class="bg-white border-b hover:bg-gray-50">
+                                        <td class="px-6 py-4 font-medium text-blue-600"><c:out value="${appt.appointmentNumber}" /></td>
+                                        <td class="px-6 py-4"><c:out value="${appt.patient.patientName}" /></td>
+                                        <td class="px-6 py-4">Treatment #<c:out value="${appt.treatment.treatmentId}" /></td>
+                                        <td class="px-6 py-4"><c:out value="${appt.appointmentTime}" /></td>
+                                        <td class="px-6 py-4"><span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded"><c:out value="${appt.status}" /></span></td>
+                                    </tr>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <tr>
+                                    <td colspan="5" class="px-6 py-4 text-center text-gray-500">No appointments found.</td>
+                                </tr>
+                            </c:otherwise>
+                        </c:choose>
                     </tbody>
                 </table>
             </div>

@@ -16,7 +16,7 @@
         <div class="h-full px-3 py-6 overflow-y-auto">
             <ul class="space-y-2 font-medium">
                 <li>
-                    <a href="dashboard.jsp" class="flex items-center p-3 text-gray-900 rounded-lg hover:bg-gray-100 group transition">
+                    <a href="dashboard" class="flex items-center p-3 text-gray-900 rounded-lg hover:bg-gray-100 group transition">
                         <span class="mr-3 text-xl">📊</span>
                         <span>Dashboard Overview</span>
                     </a>
@@ -28,9 +28,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="billing.jsp" class="flex items-center p-3 text-gray-900 rounded-lg hover:bg-gray-100 group transition">
+                    <a href="billing" class="flex items-center p-3 text-gray-900 rounded-lg hover:bg-gray-100 group transition">
                         <span class="mr-3 text-xl">💳</span>
                         <span>Billing & Invoices</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="help.jsp" class="flex items-center p-3 text-gray-900 rounded-lg hover:bg-gray-100 group transition">
+                        <span class="mr-3 text-xl">❓</span>
+                        <span>Help Center</span>
                     </a>
                 </li>
             </ul>

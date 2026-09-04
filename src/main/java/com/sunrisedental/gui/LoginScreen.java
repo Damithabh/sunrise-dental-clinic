@@ -2,7 +2,6 @@ package com.sunrisedental.gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Map;
 
 /**
  * Secure Login Screen (Swing GUI).
@@ -12,14 +11,11 @@ import java.util.Map;
  */
 public class LoginScreen extends JFrame {
 
-    private final RestApiClient apiClient;
-    
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton loginButton;
 
     public LoginScreen() {
-        this.apiClient = new RestApiClient();
         
         setTitle("Sunrise Dental Clinic - Login");
         setSize(400, 300);
@@ -89,7 +85,7 @@ public class LoginScreen extends JFrame {
                 try {
                     // For the sake of this phase, simulating a mock auth endpoint
                     // In a full implementation, this calls /api/auth/login
-                    Map<String, String> credentials = Map.of("username", username, "password", password);
+                    // In a full implementation, this calls /api/auth/login
                     
                     // Simulated logic: Admin credentials for testing
                     if ("admin".equals(username) && "admin123".equals(password)) {

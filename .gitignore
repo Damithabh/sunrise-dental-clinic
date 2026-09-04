@@ -96,3 +96,6 @@ jacoco.exec
 *.swo
 *~
 .env
+
+# Maven wrapper
+.maven/

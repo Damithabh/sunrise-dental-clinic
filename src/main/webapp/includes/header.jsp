@@ -29,9 +29,10 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="dashboard.jsp" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition">Dashboard</a>
+                        <a href="dashboard" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition">Dashboard</a>
                         <a href="register-appointment.jsp" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition">Register Appointment</a>
-                        <a href="billing.jsp" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition">Billing</a>
+                        <a href="billing" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition">Billing</a>
+                        <a href="help.jsp" class="hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium transition">Help</a>
                         
                         <form action="login" method="post" class="inline ml-4 border-l border-blue-600 pl-4">
                             <input type="hidden" name="action" value="logout">

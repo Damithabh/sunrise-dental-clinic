@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
 <% 
     // Session Check
     if(session.getAttribute("username") == null) {
@@ -16,7 +18,7 @@
         <div class="h-full px-3 py-6 overflow-y-auto">
             <ul class="space-y-2 font-medium">
                 <li>
-                    <a href="dashboard.jsp" class="flex items-center p-3 text-gray-900 rounded-lg hover:bg-gray-100 group transition">
+                    <a href="dashboard" class="flex items-center p-3 text-gray-900 rounded-lg hover:bg-gray-100 group transition">
                         <span class="mr-3 text-xl">📊</span>
                         <span>Dashboard Overview</span>
                     </a>
@@ -28,9 +30,15 @@
                     </a>
                 </li>
                 <li>
-                    <a href="billing.jsp" class="flex items-center p-3 text-blue-700 bg-blue-50 rounded-lg group transition">
+                    <a href="billing" class="flex items-center p-3 text-blue-700 bg-blue-50 rounded-lg group transition">
                         <span class="mr-3 text-xl">💳</span>
                         <span>Billing & Invoices</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="help.jsp" class="flex items-center p-3 text-gray-900 rounded-lg hover:bg-gray-100 group transition">
+                        <span class="mr-3 text-xl">❓</span>
+                        <span>Help Center</span>
                     </a>
                 </li>
             </ul>
@@ -45,11 +53,28 @@
                 <h2 class="text-3xl font-bold text-gray-800">Patient Invoice</h2>
                 <p class="text-gray-600">Review and print billing details for completed appointments.</p>
             </div>
-            <button onclick="window.print()" class="px-5 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition font-medium shadow flex items-center gap-2 btn-hover">
-                <span class="text-lg">🖨️</span> Print Invoice
-            </button>
+            <c:if test="${not empty bill}">
+                <button onclick="window.print()" class="px-5 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition font-medium shadow flex items-center gap-2 btn-hover">
+                    <span class="text-lg">🖨️</span> Print Invoice
+                </button>
+            </c:if>
         </div>
 
+        <div class="mb-8 p-6 bg-white rounded-xl shadow-sm border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-700 mb-4">Generate Bill</h3>
+            <form action="billing" method="post" class="flex items-center gap-4">
+                <input type="text" name="appointmentNumber" placeholder="Enter Appointment Number (e.g. APT-...)" required
+                    class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition w-full md:w-1/2">
+                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition shadow btn-hover">
+                    Calculate Bill
+                </button>
+            </form>
+            <c:if test="${not empty error}">
+                <p class="text-red-500 mt-4 font-medium"><c:out value="${error}" /></p>
+            </c:if>
+        </div>
+
+        <c:if test="${not empty bill}">
         <%-- Printable Invoice Card --%>
         <div class="max-w-3xl mx-auto bg-white rounded-none md:rounded-xl shadow-lg border border-gray-200 p-10 print:shadow-none print:border-none print:p-0">
             
@@ -64,8 +89,8 @@
                 </div>
                 <div class="text-right">
                     <h2 class="text-4xl font-black text-gray-200 uppercase tracking-widest">INVOICE</h2>
-                    <p class="text-gray-800 font-bold mt-2">Invoice #: <span class="font-normal text-gray-600">INV-88392</span></p>
-                    <p class="text-gray-800 font-bold">Date: <span class="font-normal text-gray-600"><%= java.time.LocalDate.now() %></span></p>
+                    <p class="text-gray-800 font-bold mt-2">Status: <span class="font-normal text-gray-600"><c:out value="${bill.paymentStatus}" /></span></p>
+                    <p class="text-gray-800 font-bold">Date: <span class="font-normal text-gray-600"><c:out value="${bill.billDate}" /></span></p>
                 </div>
             </div>
 
@@ -73,14 +98,13 @@
             <div class="grid grid-cols-2 gap-8 mb-10">
                 <div>
                     <h3 class="text-gray-500 font-bold uppercase text-xs tracking-wider mb-2">Billed To:</h3>
-                    <p class="font-bold text-gray-800 text-lg">Kamal Perera</p>
-                    <p class="text-gray-600">45 Temple Road, Kandy</p>
-                    <p class="text-gray-600">Tel: 0771234567</p>
+                    <p class="font-bold text-gray-800 text-lg"><c:out value="${bill.appointment.patient.patientName}" /></p>
+                    <p class="text-gray-600">Contact: <c:out value="${bill.appointment.patient.contactNumber}" /></p>
                 </div>
                 <div class="text-right">
                     <h3 class="text-gray-500 font-bold uppercase text-xs tracking-wider mb-2">Appointment Details:</h3>
-                    <p class="text-gray-800"><span class="font-bold">Appt No:</span> APT-20240715-001</p>
-                    <p class="text-gray-800"><span class="font-bold">Dentist:</span> Dr. Anura Silva</p>
+                    <p class="text-gray-800"><span class="font-bold">Appt No:</span> <c:out value="${bill.appointment.appointmentNumber}" /></p>
+                    <p class="text-gray-800"><span class="font-bold">Dentist:</span> <c:out value="${bill.appointment.dentistName}" /></p>
                 </div>
             </div>
 
@@ -95,14 +119,13 @@
                 <tbody class="text-gray-800">
                     <tr class="border-b border-gray-100">
                         <td class="py-4 font-medium">Standard Consultation Fee</td>
-                        <td class="py-4 text-right">500.00</td>
+                        <td class="py-4 text-right"><fmt:formatNumber value="${bill.consultationFee}" pattern="#,##0.00" /></td>
                     </tr>
                     <tr class="border-b border-gray-100">
                         <td class="py-4">
-                            <span class="font-medium">Teeth Cleaning</span><br>
-                            <span class="text-sm text-gray-500">Professional scaling and polishing (30 mins)</span>
+                            <span class="font-medium">Treatment ID: <c:out value="${bill.appointment.treatment.treatmentId}" /></span><br>
                         </td>
-                        <td class="py-4 text-right">3,000.00</td>
+                        <td class="py-4 text-right"><fmt:formatNumber value="${bill.treatmentCost}" pattern="#,##0.00" /></td>
                     </tr>
                 </tbody>
             </table>
@@ -112,15 +135,15 @@
                 <div class="w-1/2 md:w-1/3">
                     <div class="flex justify-between py-2 text-gray-600">
                         <span>Subtotal</span>
-                        <span>3,500.00</span>
+                        <span><fmt:formatNumber value="${bill.consultationFee + bill.treatmentCost}" pattern="#,##0.00" /></span>
                     </div>
                     <div class="flex justify-between py-2 text-gray-600 border-b border-gray-300">
-                        <span>Discount (0%)</span>
-                        <span>0.00</span>
+                        <span>Discount (<c:out value="${bill.discountPercentage}" />%)</span>
+                        <span><fmt:formatNumber value="${(bill.consultationFee + bill.treatmentCost) * (bill.discountPercentage / 100)}" pattern="#,##0.00" /></span>
                     </div>
                     <div class="flex justify-between py-4 text-xl font-bold text-gray-900">
                         <span>Total Due</span>
-                        <span>Rs 3,500.00</span>
+                        <span>Rs <fmt:formatNumber value="${bill.totalAmount}" pattern="#,##0.00" /></span>
                     </div>
                 </div>
             </div>
@@ -131,6 +154,7 @@
                 <p>Payment is due within 14 days of invoice date.</p>
             </div>
         </div>
+        </c:if>
 
     </div>
 </div>
