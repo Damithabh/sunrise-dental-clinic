@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/actions/workflow/status/YOUR_USERNAME/sunrise-dental-clinic/build.yml?branch=main&style=flat-square&label=CI%2FCD%20Build" alt="Build Status"/>
+  <img src="https://img.shields.io/github/actions/workflow/status/Damithabh/sunrise-dental-clinic/build.yml?branch=main&style=flat-square&label=CI%2FCD%20Build" alt="Build Status"/>
   <img src="https://img.shields.io/badge/Test_Coverage-JaCoCo-green?style=flat-square" alt="Coverage"/>
 </p>
 
@@ -117,7 +117,7 @@ sunrise-dental-clinic/
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/sunrise-dental-clinic.git
+git clone https://github.com/Damithabh/sunrise-dental-clinic.git
 cd sunrise-dental-clinic
 ```
 

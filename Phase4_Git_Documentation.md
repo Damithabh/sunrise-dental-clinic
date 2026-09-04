@@ -309,7 +309,7 @@ git merge feature/billing-system
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/YOUR_USERNAME/sunrise-dental-clinic.git
+git clone https://github.com/Damithabh/sunrise-dental-clinic.git
 cd sunrise-dental-clinic
 
 # 2. Build the project
@@ -340,9 +340,9 @@ cp target/sunrise-dental-clinic-1.0.0-SNAPSHOT.war /path/to/tomcat/webapps/
 
 ## 7. GitHub Repository Link
 
-**Repository URL:** *(To be updated after pushing to GitHub)*
+**Repository URL:**
 
-`https://github.com/YOUR_USERNAME/sunrise-dental-clinic`
+`https://github.com/Damithabh/sunrise-dental-clinic`
 
 *(Screenshot of the GitHub repository page should be inserted here in the final PDF submission.)*
 
